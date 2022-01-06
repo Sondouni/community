@@ -1,6 +1,7 @@
 package com.koreait.community.user;
 
 import com.koreait.community.user.model.UserEntity;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,9 @@ public class UserSercice {
     }
     //회원가입
     public int updUser(UserEntity entity){
+        entity.setUpw(BCrypt.hashpw(entity.getUpw(),BCrypt.gensalt()));
         int result =  mapper.updUser(entity);
+
         return result;
     }
 
