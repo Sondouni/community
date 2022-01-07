@@ -14,9 +14,9 @@
 
     let dataResult;
     //id 정규식
-    const idRegex = /^([A-Za-z0-9]{4,15})$/g;
-    const pwRegex = /^([A-Za-z0-9!@_]{4,20})$/g;
-    const nmRegex = /^([가-힣]{2,5})$/g;
+    const idRegex = /^([A-Za-z0-9]{4,15})$/;
+    const pwRegex = /^([a-zA-Z0-9!@_]{4,20})$/;
+    const nmRegex = /^([가-힣]{2,5})$/;
 
     const idFailMsg = 'id should be writen 4~12char, with english and number';
     //id 중복체크
@@ -95,7 +95,7 @@
             const uid = joinFrmElem.uid.value;
             const upw = joinFrmElem.upw.value;
             const nm = joinFrmElem.nm.value;
-            const rePwVal = joinFrmElem.querySelector('#upw-chk');
+            const rePwVal = joinFrmElem.querySelector('#upw-chk').value;
 
             console.log(idRegex.test(uid));
             console.log(uid);
@@ -113,6 +113,8 @@
                 alert('name should be writen 2~4char, in korean');
                 e.preventDefault();
             }else if(!(upw===rePwVal)){
+                console.log('upw : '+upw);
+                console.log('rePwVal : '+rePwVal);
                 alert('please write same password');
                 e.preventDefault();
             }else if(idChkSpanElem.innerHTML===`불가능`){

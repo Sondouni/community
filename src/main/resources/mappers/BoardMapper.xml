@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koreait.community.board.BoardMapper">
+
+    <select id="selBoardList" resultType="BoardVO">
+
+        SELECT A.iboard,A.title,A.iuser,A.rdt,A.hits,B.profileimg,B.nm as writernm
+        FROM t_board A
+        INNER JOIN t_user B
+        ON A.iuser = B.iuser
+        WHERE A.isdel = 0 and A.icategory = #{icategory}
+        ORDER BY A.iboard desc
+
+    </select>
+
+    <insert id="insBoard" >
+        insert into t_board
+        (icategory,title,ctnt,iuser)
+        values
+        (#{icategory},#{title},#{ctnt},#{iuser})
+    </insert>
+
+
+
+
+</mapper>

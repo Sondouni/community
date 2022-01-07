@@ -13,4 +13,5 @@
         values
             (#{uid},#{upw},#{nm},#{gender})
     </insert>
+
 </mapper>
