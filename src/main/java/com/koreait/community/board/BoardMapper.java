@@ -11,7 +11,15 @@ import java.util.List;
 public interface BoardMapper {
     //게시글 가져오기
     List<BoardVO> selBoardList(BoardDTO dto);
+    //게시글 디테일
+    BoardVO selBoardDetail(BoardDTO dto);
     //글쓰기
     int insBoard(BoardEntity entity);
+    //조회수
+    int updHits(BoardDTO dto);
+    //수정
+    int updBoard(BoardEntity dto);
+    //삭제
+    int delBoard(BoardDTO dto);
 
 }

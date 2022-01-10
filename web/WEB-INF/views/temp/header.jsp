@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <tiles:importAttribute name="menuList"/>
 <header class="h50">
@@ -15,7 +16,7 @@
         </c:choose>
 
         <c:forEach items="${menuList}" var="item">
-                <div class="m-r-20"><a href="/board/list/${item.icategory}" class="font-color-my">${item.nm}</a></div>
+                <div class="m-r-20"><a href="/board/list/${item.icategory}" id="menu${item.icategory}" class="font-color-my">${item.nm}</a></div>
         </c:forEach>
     </div>
 </header>

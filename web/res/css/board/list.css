@@ -1,0 +1,20 @@
+table, tr, td, th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table{
+    width: 1000px;
+    text-align: center;
+}
+tr,td,th{
+
+}
+.title_write{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.record:hover {
+    background-color: #efefef;
+}

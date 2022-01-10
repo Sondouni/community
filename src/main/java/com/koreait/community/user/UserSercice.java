@@ -61,4 +61,8 @@ public class UserSercice {
         return 2;
     }
 
+    public void logout(){
+        session.invalidate();
+    }
+
 }

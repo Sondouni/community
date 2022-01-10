@@ -1,0 +1,34 @@
+.detailBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+h1{
+    margin-left: 10px;
+}
+.titleBox{
+    border: 1px solid;
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.titleBox nav{
+    background-color: rgb(252, 220, 203);
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 5px;
+    border: 1px solid;
+}
+textarea{
+    width: 300px;
+}
+.detailBox input{
+    width: 300px;
+}
+.detailBtn{
+    width: 50px;
+}

@@ -60,6 +60,12 @@ public class UserController {
         return "redirect:/board/list/1";
     }
 
+    @GetMapping("/logout")
+    public String logout(){
+        sercice.logout();
+        return "redirect:/user/login";
+    }
+
     @GetMapping("/idchk/{uid}")
     @ResponseBody
     public Map<String,Integer> idChk(@PathVariable String uid){

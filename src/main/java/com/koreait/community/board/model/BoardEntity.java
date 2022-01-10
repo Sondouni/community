@@ -14,6 +14,8 @@ public class BoardEntity {
     private String ctnt;
     private int iuser;
     private int hits;
+    private int isdel;
     private String rdt;
     private String mdt;
+    private String lastip;
 }
