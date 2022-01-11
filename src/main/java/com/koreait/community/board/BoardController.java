@@ -61,9 +61,9 @@ public class BoardController {
         model.addAttribute(Const.BOARD_DETAIL,vo);
     }
     @PostMapping("/change")
-    public String changeProc(BoardDTO dto){
-        int result = service.chgBoard(dto);
-        return "redirect:/board/detail?iboard="+dto.getIboard();
+    public String changeProc(BoardEntity entity){
+        int result = service.chgBoard(entity);
+        return "redirect:/board/detail?iboard="+entity.getIboard();
     }
     //글 삭제
     @GetMapping("/delete")
@@ -71,5 +71,25 @@ public class BoardController {
         int result = service.delBoard(entity);
         return "redirect:/board/list/"+entity.getIcategory();
     }
-
+    //글 수정,삭제
+    @GetMapping("/mod")
+    public void mod(BoardDTO dto,Model model){
+        String title = "Write";
+        if(dto.getIboard()!=0){
+            BoardVO vo = service.serBoardDetail(dto);
+            model.addAttribute(Const.BOARD_DETAIL,vo);
+            title = "Change";
+        }
+        model.addAttribute("title",title);
+    }
+    @PostMapping("/mod")
+    public String modProc(BoardEntity entity){
+        System.out.println("mod포스트"+entity.getIboard());
+        if(entity.getIboard()==0){
+            int result = service.insBoard(entity);
+            return "redirect:/board/list/"+entity.getIcategory();
+        }
+        int result = service.chgBoard(entity);
+        return "redirect:/board/detail?iboard="+entity.getIboard();
+    }
 }

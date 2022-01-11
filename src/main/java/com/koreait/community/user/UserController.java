@@ -74,4 +74,15 @@ public class UserController {
         res.put("result", sercice.idChk(uid));
         return res;
     }
+    //마이페이지
+    //프로필
+    @GetMapping("/mypage/profile")
+    public void mypageProfile(){
+
+    }
+    //비밀번호
+    @GetMapping("/mypage/modpassword")
+    public void modPassword(){
+
+    }
 }

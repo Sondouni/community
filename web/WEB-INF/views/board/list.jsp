@@ -9,7 +9,7 @@
         <!--글쓰기 버튼-->
         <c:if test="${sessionScope.loginUser!=null}">
             <div>
-                <a href="/board/write?icategory=${requestScope.icategory}"><input type="button" value="write"></a>
+                <a href="/board/mod?icategory=${requestScope.icategory}"><input type="button" value="write"></a>
             </div>
         </c:if>
 

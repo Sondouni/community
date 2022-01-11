@@ -25,13 +25,10 @@ public class BoardService {
     public BoardVO serBoardDetail(BoardDTO dto){
         BoardVO detail = mapper.selBoardDetail(dto);
         //조회수 작업
-        if(!Objects.equals(dto.getLastip(),detail.getLastip())){
+        if(!detail.getLastip().equals(dto.getLastip())){
             int resultHit = mapper.updHits(dto);
             if(resultHit==1){
                 detail.setHits(detail.getHits()+1);
-            }
-            if(dto.getLastip()!=null){
-                mapper.updBoard(dto);
             }
         }
         return detail;
@@ -48,7 +45,8 @@ public class BoardService {
         return mapper.updBoard(entity);
     }
     //글수정
-    public int chgBoard(BoardDTO dto){
+    public int chgBoard(BoardEntity dto){
+        dto.setIuser(userUtils.getLoginUserPk());
         return mapper.updBoard(dto);
     }
 }

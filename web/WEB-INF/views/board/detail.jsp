@@ -15,7 +15,7 @@
     <div>
         <a href="/board/list/${requestScope.detail.icategory}"><button type="button">Back</button></a>
         <c:if test="${sessionScope.loginUser.iuser==requestScope.detail.iuser}">
-            <a href="/board/change?iboard=${requestScope.detail.iboard}"><button type="button" id="btnChg">Change</button></a>
+            <a href="/board/mod?iboard=${requestScope.detail.iboard}"><button type="button" id="btnChg">Change</button></a>
             <button type="button" id="btnDel">Delete</button>
         </c:if>
     </div>

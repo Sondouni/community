@@ -32,6 +32,7 @@
     <update id="updHits">
         UPDATE t_board
         set hits = hits+1
+        ,lastip = #{lastip}
         where iboard = ${iboard}
     </update>
 
@@ -44,17 +45,12 @@
             <if test="ctnt!=null and ctnt !=''">
                 ctnt = #{ctnt},
             </if>
-            <if test="lastip!=null and lastip !=''">
-                lastip = #{lastip}
-            </if>
             <if test="isdel==1">
                 isdel = 1
             </if>
         </set>
         where iboard = ${iboard}
-        <if test="lastip==null">
-            and iuser = ${iuser}
-        </if>
+        and iuser = ${iuser}
     </update>
 
     <delete id="delBoard">
