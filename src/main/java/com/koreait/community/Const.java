@@ -1,6 +1,8 @@
 package com.koreait.community;
 
 public class Const {
+    public static final String UPLOAD_IMG_PATH="C:/Users/Sondouni/Desktop/Programing_files/IntelliJ/upload/images";
+
     public static final String LOGIN_USER = "loginUser";
     public static final String MSG = "errMsg";
     public static final String TRY_LOGIN = "tryLogin";

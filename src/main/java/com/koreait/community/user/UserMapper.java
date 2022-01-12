@@ -9,5 +9,6 @@ public interface UserMapper {
     UserEntity selUser(UserEntity entity);
     //회원가입
     int updUser(UserEntity entity);
-    //로그인
+    //프로필사진
+    int updProfile(UserEntity entity);
 }

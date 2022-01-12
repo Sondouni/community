@@ -36,7 +36,12 @@
                         <td>${item.iboard}</td>
                         <td><c:out value="${item.title}" /></td>
                         <td>${item.hits}</td>
-                        <td><c:out value="${item.writernm}" /></td>
+                        <td>
+                            <c:out value="${item.writernm}" />
+                            <p id="profile-view" class="pointer circular--img circular--size40">
+                                <img src="${item.profileimg=='profileImg'?'/res/img/defaultProfile.png':'/images/user/'+=item.iuser+='/'+=item.profileimg}">
+                            </p>
+                        </td>
                         <td>${item.rdt}</td>
                     </tr>
                 </c:forEach>

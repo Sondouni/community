@@ -4,7 +4,8 @@
     <!--게시글 리스트-->
     <select id="selBoardList" resultType="BoardVO">
 
-        SELECT A.iboard,A.title,A.iuser,A.rdt,A.hits,B.profileimg,B.nm as writernm
+        SELECT A.iboard,A.title,A.iuser,A.rdt,A.hits,B.nm as writernm,
+               B.profileimg as profileimg
         FROM t_board A
         INNER JOIN t_user B
         ON A.iuser = B.iuser

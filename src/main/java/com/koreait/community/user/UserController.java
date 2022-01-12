@@ -6,6 +6,7 @@ import com.koreait.community.user.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
@@ -79,6 +80,14 @@ public class UserController {
     @GetMapping("/mypage/profile")
     public void mypageProfile(){
 
+    }
+    @ResponseBody
+    @PostMapping("/mypage/profile")
+    public Map<String,String> mypageProfileProc(MultipartFile profileimg){
+        String json = sercice.uploadProfileImg(profileimg);
+        Map<String,String> result = new HashMap();
+        result.put("result",json);
+        return result;
     }
     //비밀번호
     @GetMapping("/mypage/modpassword")

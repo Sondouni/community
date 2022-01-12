@@ -17,6 +17,7 @@
     <mvc:annotation-driven/> <!-- annotation 활성화 -->
 
     <mvc:resources mapping="/res/**" location="/res/"/>
+    <mvc:resources mapping="/images/**" location="file:///C:/Users/Sondouni/Desktop/Programing_files/IntelliJ/upload/images/"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- property는 setter를 하는것 -->

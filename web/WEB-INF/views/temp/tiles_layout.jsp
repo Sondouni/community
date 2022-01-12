@@ -23,7 +23,7 @@
             <c:if test="${fn:contains(currentPagePath,'mypage')}">
                 <tiles:insertAttribute name="leftmenu"/>
             </c:if>
-            <div>
+            <div class="content-box">
                 <tiles:insertAttribute name="content"/>
             </div>
         </section>

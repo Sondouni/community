@@ -31,18 +31,6 @@
         -->
     </definition>
 
-    <definition name="tiles_submenu_template" template="/WEB-INF/views/temp/tiles_submenu_layout.jsp" preparer="MenuPreparer">
-        <put-attribute name="header" value="/WEB-INF/views/temp/header.jsp"/>
-        <put-attribute name="footer" value="/WEB-INF/views/temp/footer.jsp"/>
-
-        <put-attribute name="common" value="common"/>
-        <put-attribute name="title" value="COMMUNITY"/>
-        <!--
-        <put-attribute name="commonJs" value="common.js"/>
-        <put-attribute name="commonCss" value="common.css"/>
-        -->
-    </definition>
-
     <definition name="user/*/*" extends="tiles_template" >
         <put-attribute name="title" value="{2}"/>
         <put-attribute name="content" value="/WEB-INF/views/user/{1}/{2}.jsp"/>

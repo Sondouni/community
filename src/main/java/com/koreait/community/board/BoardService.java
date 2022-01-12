@@ -25,7 +25,7 @@ public class BoardService {
     public BoardVO serBoardDetail(BoardDTO dto){
         BoardVO detail = mapper.selBoardDetail(dto);
         //조회수 작업
-        if(!detail.getLastip().equals(dto.getLastip())){
+        if(dto.getLastip() != null && !Objects.equals(dto.getLastip(), detail.getLastip())){
             int resultHit = mapper.updHits(dto);
             if(resultHit==1){
                 detail.setHits(detail.getHits()+1);
