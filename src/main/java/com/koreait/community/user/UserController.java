@@ -2,6 +2,7 @@ package com.koreait.community.user;
 
 import com.koreait.community.Const;
 import com.koreait.community.UserUtils;
+import com.koreait.community.user.model.UserDTO;
 import com.koreait.community.user.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class UserController {
         }
         //회원가입 후 로그인
         sercice.selLogin(entity);
-        return "redirect:/user/login";
+        return "redirect:/board/list/1";
     }
 
     @GetMapping("/login")
@@ -86,6 +87,7 @@ public class UserController {
     public Map<String,String> mypageProfileProc(MultipartFile profileimg){
         String json = sercice.uploadProfileImg(profileimg);
         Map<String,String> result = new HashMap();
+        System.out.println("json : "+json);
         result.put("result",json);
         return result;
     }
@@ -93,5 +95,12 @@ public class UserController {
     @GetMapping("/mypage/modpassword")
     public void modPassword(){
 
+    }
+    @ResponseBody
+    @PostMapping("/mypage/modpassword")
+    public int modPassword(@RequestBody UserDTO dto){
+        int result = sercice.selChkUpw(dto);
+        System.out.println("비번 result = "+result);
+        return result;
     }
 }

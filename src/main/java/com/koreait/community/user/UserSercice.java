@@ -3,6 +3,7 @@ package com.koreait.community.user;
 import com.koreait.community.Const;
 import com.koreait.community.MyFileUtils;
 import com.koreait.community.UserUtils;
+import com.koreait.community.user.model.UserDTO;
 import com.koreait.community.user.model.UserEntity;
 import org.springframework.beans.BeanUtils;
 import org.mindrot.jbcrypt.BCrypt;
@@ -96,6 +97,26 @@ public class UserSercice {
         loginUser.setProfileimg(filenm);
         System.out.println("fileNm : "+filenm);
         return filenm;
+    }
+    //비밀번호 변경
+    public int selChkUpw(UserDTO dto){
+        System.out.println(dto);
+        UserEntity upwEntity = mapper.selChkUpw(dto);
+        System.out.println(upwEntity);
+        if (upwEntity!=null){
+            System.out.println("현재 : "+upwEntity.getUpw());
+            System.out.println("현재그냥 : "+dto.getUpw());
+            System.out.println("바꿈 : "+dto.getNewUpw());
+            if(BCrypt.checkpw(dto.getUpw(),upwEntity.getUpw())){
+                upwEntity.setIuser(dto.getIuser());
+                upwEntity.setUpw(BCrypt.hashpw(dto.getNewUpw(),BCrypt.gensalt()));
+                int result = mapper.updProfile(upwEntity);
+                System.out.println("쿼리 돌린 결과 result"+result);
+                return 1;
+            }
+            return 0;
+        }
+        return 2;
     }
 
 }

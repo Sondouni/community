@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="my" uri="tld/MyCustomJstlTag.tld" %>
 <div>
     <div class="title_write">
         <div>
@@ -41,6 +42,11 @@
                             <p id="profile-view" class="pointer circular--img circular--size40">
                                 <img src="${item.profileimg=='profileImg'?'/res/img/defaultProfile.png':'/images/user/'+=item.iuser+='/'+=item.profileimg}">
                             </p>
+                            <my:profileImg
+                                    iuser="${item.iuser}"
+                                    profileImgVal="${item.profileimg}"
+                                    classVal="circular--img circular--size40"
+                            />
                         </td>
                         <td>${item.rdt}</td>
                     </tr>

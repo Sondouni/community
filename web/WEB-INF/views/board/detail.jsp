@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="my" uri="tld/MyCustomJstlTag.tld" %>
 <div class="detailBox"
     data-icategory = "${requestScope.detail.icategory}"
      data-iboard = "${requestScope.detail.iboard}"

@@ -8,6 +8,7 @@ public class Const {
     public static final String TRY_LOGIN = "tryLogin";
     public static final String MENU_LIST = "menuList";
     public static final String BOARD_LIST = "boardList";
+    public static final String SUB_MENU_LIST = "subMenuList";
     public static final String I_CATEGORY = "icategory";
     public static final String BOARD_DETAIL = "detail";
 

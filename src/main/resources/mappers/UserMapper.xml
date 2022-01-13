@@ -4,7 +4,12 @@
 
     <select id="selUser" resultType="UserEntity">
         SELECT * from t_user
-        WHERE uid = #{uid}
+        <if test="uid!=null and uid!=''">
+            WHERE uid = #{uid}
+        </if>
+        <if test="iuser!=null and iuser!=''">
+            WHERE iuser = #{iuser}
+        </if>
     </select>
 
     <insert id="updUser" >
@@ -25,5 +30,9 @@
         </if>
         where iuser = #{iuser}
     </update>
+
+    <select id="selChkUpw" resultType="UserEntity">
+        SELECT upw from t_user where iuser = #{iuser}
+    </select>
 
 </mapper>

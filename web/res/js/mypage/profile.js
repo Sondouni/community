@@ -31,9 +31,8 @@
             'method':'POST',
             'body':fData
         })
-            .then(res=>{
-                console.log(res);
-                res.json();})
+            .then(res=>
+                res.json())
             .then(data=>{
                 console.log(data);
                 /*
