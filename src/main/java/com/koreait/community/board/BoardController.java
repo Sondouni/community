@@ -4,6 +4,7 @@ import com.koreait.community.CommonMapper;
 import com.koreait.community.Const;
 import com.koreait.community.board.model.BoardDTO;
 import com.koreait.community.board.model.BoardEntity;
+import com.koreait.community.board.model.BoardPrevNextVo;
 import com.koreait.community.board.model.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,7 +52,10 @@ public class BoardController {
         System.out.println("lastIp : " + lastIp);
         dto.setLastip(lastIp);
         BoardVO vo = service.serBoardDetail(dto);
+        BoardPrevNextVo pnVo = service.selPrevNext(vo);
         model.addAttribute(Const.BOARD_DETAIL,vo);
+        model.addAttribute(Const.PREV_NEXT,pnVo);
+        System.out.println(pnVo);
     }
 
     //글 수정

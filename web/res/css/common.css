@@ -91,3 +91,16 @@ li{
 .pointer { cursor: pointer;}
 
 .hidden { display: none; }
+
+.img-return {
+
+
+    transform: scaleX(-1);
+
+
+
+}
+hr{
+    margin: 30px 0;
+    width: 500px;
+}

@@ -60,6 +60,25 @@
         where iboard = ${iboard}
     </delete>
 
+    <select id="selPrevNext" resultType="BoardPrevNextVo">
+        <![CDATA[
+        SELECT (	SELECT iboard FROM t_board
+        WHERE iboard > #{iboard}
+        AND isdel = 0
+        AND icategory = #{icategory}
+        ORDER BY iboard
+        LIMIT 1
+        )AS previboard,
+                (	SELECT iboard FROM t_board
+        WHERE iboard < #{iboard}
+        AND isdel = 0
+        AND icategory = #{icategory}
+        ORDER BY iboard desc
+        LIMIT 1
+        )AS nextiboard
+                ]]>
+    </select>
+
 
 
 

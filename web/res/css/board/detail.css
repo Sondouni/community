@@ -1,4 +1,5 @@
 .detailBox{
+    margin: 0 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,6 +30,36 @@ textarea{
 .detailBox input{
     width: 300px;
 }
+.cmtBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+.cmtBox .submit-btn{
+    width: 70px;
+}
+.cmtBox .listNm{
+    width: 70px;
+}
+.cmtBox .listCtnt{
+
+}
+.cmtBox .listRdt{
+    width: 150px;
+}
+.cmtBox .cmtBtnsDiv input{
+    width: 50px;
+}
+.cmtBox .cmtListDiv{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
 .detailBtn{
     width: 50px;
 }
+

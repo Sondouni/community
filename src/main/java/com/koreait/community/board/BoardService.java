@@ -4,6 +4,7 @@ import com.koreait.community.Const;
 import com.koreait.community.UserUtils;
 import com.koreait.community.board.model.BoardDTO;
 import com.koreait.community.board.model.BoardEntity;
+import com.koreait.community.board.model.BoardPrevNextVo;
 import com.koreait.community.board.model.BoardVO;
 import com.koreait.community.user.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class BoardService {
             }
         }
         return detail;
+    }
+    public BoardPrevNextVo selPrevNext(BoardVO vo){
+        return mapper.selPrevNext(vo);
     }
     //글쓰기
     public int insBoard(BoardEntity entity){

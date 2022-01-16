@@ -10,9 +10,12 @@
     <link rel="stylesheet" href="/res/css/<tiles:getAsString name='common'/>.css">
     <link rel="stylesheet" href="/res/css/<tiles:getAsString name='addr1'/>/index.css">
     <link rel="stylesheet" href="/res/css/<tiles:getAsString name='addr2'/>.css">
+<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">--%>
+
     <script defer src="/res/js/<tiles:getAsString name='common'/>.js"></script>
     <script defer src="/res/js/<tiles:getAsString name='addr1'/>/index.js"></script>
     <script defer src="/res/js/<tiles:getAsString name='addr2'/>.js"></script>
+
     <title></title>
 </head>
 <body>

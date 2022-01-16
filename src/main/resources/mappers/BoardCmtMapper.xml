@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koreait.community.board.cmt.BoardCmtMapper">
+    <insert id="insCmt">
+        INSERT INTO t_board_cmt
+            (iboard,iuser,ctnt)
+        VALUES
+            (#{iboard},#{iuser},#{ctnt})
+    </insert>
+
+    <select id="selCmtList" resultType="BoardCmtVO">
+        SELECT A.icmt,A.ctnt,A.iuser,A.rdt,A.mdt,B.nm
+        FROM t_board_cmt A
+        JOIN t_user B
+        ON A.iuser = B.iuser
+        WHERE iboard = ${iboard};
+    </select>
+</mapper>
