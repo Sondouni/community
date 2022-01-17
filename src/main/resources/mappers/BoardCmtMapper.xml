@@ -9,10 +9,21 @@
     </insert>
 
     <select id="selCmtList" resultType="BoardCmtVO">
-        SELECT A.icmt,A.ctnt,A.iuser,A.rdt,A.mdt,B.nm
+        SELECT A.icmt,A.ctnt,A.iuser,A.rdt,A.mdt,B.nm as nm,B.profileimg as profileimg
         FROM t_board_cmt A
         JOIN t_user B
         ON A.iuser = B.iuser
         WHERE iboard = ${iboard};
     </select>
+
+    <delete id="delCmt">
+        delete from t_board_cmt where icmt = ${icmt} and iuser=${iuser};
+    </delete>
+
+    <update id="updCmt">
+        update t_board_cmt
+        set ctnt = #{ctnt}
+        where icmt = ${icmt}
+        and iuser = ${iuser};
+    </update>
 </mapper>

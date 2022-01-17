@@ -5,6 +5,9 @@ const icategory = detailElem.dataset.icategory;
 console.log('icategory : '+icategory);
 const iuser = detailElem.dataset.iuser;
 console.log('iuser : '+iuser);
+//댓글 리스트 id
+const cmtListElem = document.querySelector('#cmtList');
+
 {
 
     //삭제
@@ -65,7 +68,6 @@ console.log('iuser : '+iuser);
         getCmtList(iboard);
     }
 
-
 }
 //댓글 쓰기 함수
 function insBoardCmtAjax(ctnt){
@@ -85,6 +87,7 @@ function insBoardCmtAjax(ctnt){
             return res.json();
         }).then(function (data){
             const cmtListDivIDElem = document.querySelectorAll('.cmtListDiv');
+
             if(cmtListDivIDElem){
                 console.log('삭제')
                 cmtListDivIDElem.forEach(function (item){
@@ -92,6 +95,7 @@ function insBoardCmtAjax(ctnt){
                 });
             }
             getCmtList(iboard);
+
     }).catch(function (err){
         console.log(err);
     });
@@ -99,7 +103,9 @@ function insBoardCmtAjax(ctnt){
 
 //리스트 호출 함수
 function getCmtList (iboard){
-    let listUrl = `/board/cmt/list?iboard=${iboard}`;
+    let listUrl = `/board/cmt/${iboard}`;
+    myFetch.get(listUrl,setCmtList);
+    /*
     fetch(listUrl)
         .then(function (res){
             return res.json();
@@ -110,31 +116,116 @@ function getCmtList (iboard){
     }).catch(function (err){
         console.log(err);
     });
+
+     */
 }
 //리스트를 받아서 div 태그 만들어주기
-function makeList (cmtList){
-    const cmtListElem = document.querySelector('#cmtList');
+function setCmtList (cmtList){
+    if(cmtList.length==0){
+        cmtListElem.innerHTML = 'please write a comment';
+    }
     console.log(cmtList.length);
     console.log(typeof cmtList);
     cmtList.forEach(function (item){
-        let divElem = document.createElement('div');
-        divElem.className = 'cmtListDiv';
-        divElem.innerHTML = `
-        <input type="text" class="listNm" name="nm" value="${item.nm}" readonly/>
+        makeDiv(item);
+    });
+}
+function makeDiv(item){
+    let divElem = document.createElement('div');
+    divElem.className = 'cmtListDiv';
+    divElem.innerHTML = `
+        <div class="listNmProfile">
+            <div class="listNm">${item.nm}</div>
+            <img class="circular--size40 circular--img" src="${item.profileimg=='profileImg'?'/res/img/defaultProfile.png':'/images/user/'+item.iuser+'/'+item.profileimg}"/>
+        </div>
         <input type="text" class="listCtnt" name="ctnt" value="${item.ctnt}" readonly/>
         <input type="text" class="listRdt" name="rdt" value="${item.rdt}" readonly/>
           `;
-        cmtListElem.appendChild(divElem);
-        console.log('cmt iuser : '+item.iuser)
-        console.log('login iuser : '+iuser);
-        if(item.iuser==iuser){
-            let btnDivElem = document.createElement('div');
-            btnDivElem.className = 'cmtBtnsDiv';
-            btnDivElem.innerHTML=`
+    cmtListElem.appendChild(divElem);
+    console.log('cmt iuser : '+item.iuser)
+    console.log('login iuser : '+iuser);
+    if(item.iuser==iuser){
+        let btnDivElem = document.createElement('div');
+        let btnDel = addDelBtn(item.icmt,divElem);
+        let btnMod = addModBtn(divElem,btnDivElem,item.icmt);
+        btnDivElem.appendChild(btnDel);
+        btnDivElem.appendChild(btnMod);
+
+        divElem.appendChild(btnDivElem);
+        /*
+        btnDivElem.className = 'cmtBtnsDiv';
+        btnDivElem.innerHTML=`
             <input type="button" value="change" id="cmtModBtn"/>
             <input type="button" value="delete" id="cmtDelBtn"/>
              `;
-            divElem.appendChild(btnDivElem);
-        }
+        divElem.appendChild(btnDivElem);
+
+         */
+    }
+}
+//댓글 삭제 버튼
+function addDelBtn(icmt,divElem){
+    let btnDel = document.createElement('button');
+    btnDel.innerText = 'delete';
+    btnDel.addEventListener('click',function (e){
+       if(confirm('are you sure to delete this comment?')){
+           let url = `/board/cmt/${icmt}`;
+           myFetch.del(url,function (data){
+               console.log(data);
+               if(data!=1){
+                   alert('fail to delete comment');
+               }else {
+                   divElem.remove();
+
+               }
+           });
+       }
     });
+    return btnDel;
+}
+function addModBtn(divElem,btnDivElem,icmt){
+    let btnMod = document.createElement('button');
+    btnMod.innerText = 'change';
+    let divCtnt = divElem.querySelector('.listCtnt');
+    let oldCtnt = divCtnt.value;
+    console.log('ctnt내용 : '+divCtnt.value);
+    btnMod.addEventListener('click',function (e){
+        let subBtnDivElem = document.createElement('div');
+        divCtnt.readOnly = false;
+        divCtnt.select();
+        //먼저 있던 버튼들을 삭제
+        btnDivElem.remove();
+        let modSubmit = document.createElement('button');
+        modSubmit.innerText = 'submit';
+        let cancelBtn = document.createElement('button');
+        cancelBtn.innerText = 'cancel';
+        //새로운 div를 추가해서 버튼을 삽입
+        subBtnDivElem.appendChild(modSubmit);
+        subBtnDivElem.appendChild(cancelBtn);
+
+        divElem.appendChild(subBtnDivElem);
+        console.log(btnDivElem);
+        //cancel,submit 이벤트 추가
+        cancelBtn.addEventListener('click',function (e){
+            subBtnDivElem.remove();
+            divElem.appendChild(btnDivElem);
+            divCtnt.value = oldCtnt;
+        });
+        modSubmit.addEventListener('click',function (e){
+            let modUrl = `/board/cmt`;
+            let param = {
+                ctnt : divCtnt.value,
+                icmt : icmt
+            }
+            myFetch.put(modUrl,(data)=>{
+                if(data==1){
+                    subBtnDivElem.remove();
+                    divElem.appendChild(btnDivElem);
+                }else {
+                    alert('fail to change your comment');
+                }
+            },param);
+        });
+    });
+    return btnMod;
 }

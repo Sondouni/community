@@ -17,23 +17,31 @@ public class BoardCmtController {
     private BoardCmtService service;
 
     //댓글 가져오기
-    @GetMapping("/list")
-    public Map<String, List<BoardCmtVO>> selCmtList(@RequestParam("iboard") int iboard){
-        Map<String, List<BoardCmtVO>> result= new HashMap<>();
+    @GetMapping("/{iboard}")
+    public List<BoardCmtVO> selCmtList(@PathVariable int iboard){
         BoardCmtEntity entity = new BoardCmtEntity();
+        System.out.println("iboard : "+iboard);
         entity.setIboard(iboard);
-        Gson gson = new Gson();
-        String json = gson.toJson(service.selCmtList(entity));
-        result.put("result",service.selCmtList(entity));
-        return result;
+
+        return service.selCmtList(entity);
     }
-
-
-
-
     //댓글쓰기
     @PostMapping("/ins")
     public int insertCmt(@RequestBody BoardCmtEntity entity){
         return service.insCmt(entity);
+    }
+
+    //댓글 삭제
+    @DeleteMapping("/{icmt}")
+    public int deleteCmt(@PathVariable("icmt") int icmt){
+        BoardCmtEntity entity = new BoardCmtEntity();
+        entity.setIcmt(icmt);
+        return service.delCmt(entity);
+    }
+
+    //댓글 수정
+    @PutMapping
+    public int updCmt(@RequestBody  BoardCmtEntity entity){
+        return service.updCmt(entity);
     }
 }

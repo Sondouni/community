@@ -2,7 +2,6 @@
     margin: 0 30px;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     text-align: center;
 }
@@ -56,10 +55,26 @@ textarea{
     margin-top: 10px;
     display: flex;
     flex-direction: row;
+    align-items: center;
+
     gap: 10px;
+}
+.cmtListDiv .listNmProfile{
+    display: flex;
+    flex-direction: row;
+    padding: 2px;
+    align-items: center;
+    border: 1px solid;
+}
+.cmtListDiv .listNm{
+    width: 60px;
 }
 
 .detailBtn{
+    width: 50px;
+}
+
+.preNextBtn{
     width: 50px;
 }
 

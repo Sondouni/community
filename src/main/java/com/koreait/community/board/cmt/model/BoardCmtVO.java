@@ -9,4 +9,5 @@ import lombok.ToString;
 @ToString
 public class BoardCmtVO extends BoardCmtEntity{
     private String nm;
+    private String profileimg;
 }

@@ -12,4 +12,8 @@ public interface BoardCmtMapper {
     int insCmt(BoardCmtEntity entity);
     //댓글 리스트
     List<BoardCmtVO> selCmtList(BoardCmtEntity entity);
+    //댓글 삭제
+    int delCmt(BoardCmtEntity entity);
+    //댓글 수정
+    int updCmt(BoardCmtEntity entity);
 }

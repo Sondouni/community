@@ -1,11 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" uri="tld/MyCustomJstlTag.tld" %>
-<c:if test="${requestScope.prevNext.previboard>0}">
-    <div>
-        <a href="/board/detail?iboard=${requestScope.prevNext.previboard}"><img id="preBtn" class="circular--size40 img-return" src="/res/img/arrowimg.png"></a>
-    </div>
-</c:if>
+<div class="preNextBtn">
+    <c:if test="${requestScope.prevNext.previboard>0}">
+        <div>
+            <a href="/board/detail?iboard=${requestScope.prevNext.previboard}"><img id="preBtn" class="circular--size40 img-return" src="/res/img/arrowimg.png"></a>
+        </div>
+    </c:if>
+</div>
 <div class="detailBox"
     data-icategory = "${requestScope.detail.icategory}"
      data-iboard = "${requestScope.detail.iboard}"
@@ -45,8 +47,11 @@
 
     <!--댓글기능 끝-->
 </div>
-<c:if test="${requestScope.prevNext.nextiboard>0}">
-<div>
-    <a href="/board/detail?iboard=${requestScope.prevNext.nextiboard}"><img id="nextBtn" class="circular--size40 " src="/res/img/arrowimg.png"></a>
+<div class="preNextBtn">
+    <c:if test="${requestScope.prevNext.nextiboard>0}">
+        <div>
+            <a href="/board/detail?iboard=${requestScope.prevNext.nextiboard}"><img id="nextBtn" class="circular--size40 " src="/res/img/arrowimg.png"></a>
+        </div>
+    </c:if>
 </div>
-</c:if>
+
