@@ -13,6 +13,8 @@
      data-iboard = "${requestScope.detail.iboard}"
      data-iuser = "${sessionScope.loginUser.iuser}"
      data-boardiuser="${requestScope.detail.iuser}"
+     data-profileimg="${sessionScope.loginUser.profileimg}"
+     data-nm="${sessionScope.loginUser.nm}"
 >
     <div class="titleBox">
         ${requestScope.preNext.previboard}

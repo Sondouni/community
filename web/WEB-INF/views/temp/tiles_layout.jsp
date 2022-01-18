@@ -19,6 +19,7 @@
     <title></title>
 </head>
 <body>
+<!--현재 주소창의 주소값을 가져오는것-->
 <c:set var="currentPagePath" value="${requestScope['javax.servlet.forward.request_uri']}" />
     <div id="container" >
         <tiles:insertAttribute name="header"/>
@@ -26,9 +27,11 @@
             <c:if test="${fn:contains(currentPagePath,'mypage')}">
                 <tiles:insertAttribute name="leftmenu"/>
             </c:if>
+
             <div class="content-box">
                 <tiles:insertAttribute name="content"/>
             </div>
+
         </section>
         <tiles:insertAttribute name="footer"/>
     </div>

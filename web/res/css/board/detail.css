@@ -43,20 +43,23 @@ textarea{
     width: 70px;
 }
 .cmtBox .listCtnt{
-
+    border: none;
 }
 .cmtBox .listRdt{
-    width: 150px;
+    text-align: center;
+    width: 100px;
 }
 .cmtBox .cmtBtnsDiv input{
     width: 50px;
 }
 .cmtBox .cmtListDiv{
+    padding: 0 20px;
     margin-top: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
-
+    border: 1px solid;
+    border-radius : 20px;
     gap: 10px;
 }
 .cmtListDiv .listNmProfile{
@@ -64,10 +67,14 @@ textarea{
     flex-direction: row;
     padding: 2px;
     align-items: center;
-    border: 1px solid;
+    border-right: 1px solid;
 }
 .cmtListDiv .listNm{
     width: 60px;
+}
+.cmtListDiv .listIcmt{
+    text-align: center;
+    width: 30px;
 }
 
 .detailBtn{

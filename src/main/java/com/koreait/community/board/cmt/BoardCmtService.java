@@ -17,7 +17,8 @@ public class BoardCmtService {
 
     //댓글쓰기
     public int insCmt(BoardCmtEntity entity){
-        return mapper.insCmt(entity);
+        mapper.insCmt(entity);
+        return entity.getIcmt();
     }
     //댓글 가져오기
     public List<BoardCmtVO> selCmtList(BoardCmtEntity entity){

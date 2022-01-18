@@ -7,6 +7,35 @@ const iuser = detailElem.dataset.iuser;
 console.log('iuser : '+iuser);
 //댓글 리스트 id
 const cmtListElem = document.querySelector('#cmtList');
+console.log('리스트 엘레먼트');
+console.log(cmtListElem);
+
+{
+    //현재 시간 구하기
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth();
+    let data = today.getDate();
+    let hours = today.getHours();
+    let minutes = today.getMinutes();
+    function timepassed(rdt){
+        let timearr = rdt.split(' ');
+        let timeymd = timearr[0].split('-');
+        let timehms = timearr[1].split(':');
+        var rdtDate = new Date(timeymd[0],parseInt(timeymd[1])-1,timeymd[2],timehms[0],timehms[1]);
+        var curDate = new Date(year,month,data,hours,minutes);
+        var elapsedSec = (curDate.getTime()-rdtDate.getTime())/60000;
+        if(elapsedSec<60){
+            return elapsedSec+'분 전';
+        }else if(elapsedSec>=60 && elapsedSec<=1440){
+            return Math.round(elapsedSec/60) + '시간 전';
+        }else if(elapsedSec>1440 && elapsedSec<= 7200){
+            return Math.round(elapsedSec/1440) + '일 전';
+        }else {
+            return timeymd.join('-');
+        }
+    }
+}
 
 {
 
@@ -86,6 +115,7 @@ function insBoardCmtAjax(ctnt){
         .then(function (res){
             return res.json();
         }).then(function (data){
+            /*
             const cmtListDivIDElem = document.querySelectorAll('.cmtListDiv');
 
             if(cmtListDivIDElem){
@@ -95,7 +125,22 @@ function insBoardCmtAjax(ctnt){
                 });
             }
             getCmtList(iboard);
-
+             */
+        console.log(data);
+        if(data!=0){
+            if(cmtListElem.lastElementChild==null){
+                cmtListElem.innerHTML=null;
+            }
+            const insertObj = {
+                icmt : data,
+                nm : detailElem.dataset.nm,
+                profileimg : detailElem.dataset.profileimg,
+                ctnt : ctnt,
+                iuser : iuser,
+                rdt : 'new'
+            }
+            makeDiv(insertObj);
+        }
     }).catch(function (err){
         console.log(err);
     });
@@ -131,9 +176,13 @@ function setCmtList (cmtList){
     });
 }
 function makeDiv(item){
+    if(item.rdt.length>5){
+        item.rdt = timepassed(item.rdt);
+    }
     let divElem = document.createElement('div');
     divElem.className = 'cmtListDiv';
     divElem.innerHTML = `
+        <input type="text" class="listIcmt" value="${item.icmt}"/>
         <div class="listNmProfile">
             <div class="listNm">${item.nm}</div>
             <img class="circular--size40 circular--img" src="${item.profileimg=='profileImg'?'/res/img/defaultProfile.png':'/images/user/'+item.iuser+'/'+item.profileimg}"/>
@@ -176,7 +225,11 @@ function addDelBtn(icmt,divElem){
                    alert('fail to delete comment');
                }else {
                    divElem.remove();
-
+                   console.log('삭제후');
+                   console.log(cmtListElem.lastElementChild);
+                    if(cmtListElem.lastElementChild==null){
+                        cmtListElem.innerHTML = 'please write a comment';
+                    }
                }
            });
        }
@@ -187,17 +240,31 @@ function addModBtn(divElem,btnDivElem,icmt){
     let btnMod = document.createElement('button');
     btnMod.innerText = 'change';
     let divCtnt = divElem.querySelector('.listCtnt');
-    let oldCtnt = divCtnt.value;
-    console.log('ctnt내용 : '+divCtnt.value);
     btnMod.addEventListener('click',function (e){
+        //현재 값 가져오기
+        let oldCtnt = divCtnt.value;
+
         let subBtnDivElem = document.createElement('div');
+
+        //다른곳에 change가 눌러졌다면 cancel눌러주기기
+       let divCtntArr = document.querySelectorAll('.listCtnt');
+        divCtntArr.forEach(function (divCtnt){
+            if (!divCtnt.readOnly){
+                let ModCancelBtnElem = document.querySelector('#ModCancelBtn');
+                ModCancelBtnElem.click();
+            }
+        });
+
+
         divCtnt.readOnly = false;
-        divCtnt.select();
+        //change버튼 클릭시 divCtnt 스타일 변경
+        divCtnt.style.border = '1px solid #000000';
         //먼저 있던 버튼들을 삭제
         btnDivElem.remove();
         let modSubmit = document.createElement('button');
         modSubmit.innerText = 'submit';
         let cancelBtn = document.createElement('button');
+        cancelBtn.id = 'ModCancelBtn';
         cancelBtn.innerText = 'cancel';
         //새로운 div를 추가해서 버튼을 삽입
         subBtnDivElem.appendChild(modSubmit);
@@ -210,6 +277,8 @@ function addModBtn(divElem,btnDivElem,icmt){
             subBtnDivElem.remove();
             divElem.appendChild(btnDivElem);
             divCtnt.value = oldCtnt;
+            divCtnt.readOnly = true;
+            divCtnt.style.border = 'none';
         });
         modSubmit.addEventListener('click',function (e){
             let modUrl = `/board/cmt`;
@@ -219,8 +288,9 @@ function addModBtn(divElem,btnDivElem,icmt){
             }
             myFetch.put(modUrl,(data)=>{
                 if(data==1){
-                    subBtnDivElem.remove();
-                    divElem.appendChild(btnDivElem);
+                    let ModCancelBtnElem = document.querySelector('#ModCancelBtn');
+                    ModCancelBtnElem.click();
+                    divCtnt.value = param.ctnt;
                 }else {
                     alert('fail to change your comment');
                 }
