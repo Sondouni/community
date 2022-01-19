@@ -12,6 +12,7 @@ public class Const {
     public static final String I_CATEGORY = "icategory";
     public static final String BOARD_DETAIL = "detail";
     public static final String PREV_NEXT = "prevNext";
+    public static final String RESULT = "result";
 
     public static final String ERR_1 = " unknown Error ";
     public static final String ERR_2 = " Not exist your ID ";

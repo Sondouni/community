@@ -139,7 +139,8 @@ function insBoardCmtAjax(ctnt){
                 iuser : iuser,
                 rdt : 'new'
             }
-            makeDiv(insertObj);
+            let divElem = makeDiv(insertObj);
+            window.scrollTo({top:divElem.offsetTop,behavior:'smooth'});
         }
     }).catch(function (err){
         console.log(err);
@@ -211,6 +212,7 @@ function makeDiv(item){
 
          */
     }
+    return divElem;
 }
 //댓글 삭제 버튼
 function addDelBtn(icmt,divElem){
@@ -298,4 +300,83 @@ function addModBtn(divElem,btnDivElem,icmt){
         });
     });
     return btnMod;
+}
+
+{
+    //좋아요 ajax 처리
+
+    const favBtnElem = document.querySelector('#favBtn');
+    const favListElem = document.querySelector('#favList');
+    let isLike;
+    /*
+    const selFav = () =>{
+        return  fetch(`/board/fav/${iboard}`).then(res=>res.json());
+    }
+    async function isLikeConfirm(){
+        let isLike;
+        try{
+            isLike = await selFav();
+        }catch (err){
+            console.log(err)
+        }
+        return isLike;
+
+        let isLike = isLikeConfirm();
+        console.log(isLike);
+    }
+     */
+    //하트를 띄어주기
+    const selFav = () =>{
+        myFetch.get(`/board/fav/${iboard}`,(data)=>{
+            if(data.result==1){
+                favBtnElem.className = 'fas fa-heart color-pink fs-30';
+                isLike = 1;
+            }else {
+                favBtnElem.className = 'far fa-heart color-pink fs-30';
+                isLike = 0;
+            }
+            selFavList();
+        });
+    }
+    //좋아요 갯수, 리스트 뿌려주기
+    const selFavList = ()=>{
+        myFetch.get(`/board/fav?iboard=${iboard}`,(data)=>{
+            favListElem.innerHTML = `Like&nbsp${data.result.length}`;
+            favListElem.addEventListener('click',function (e){
+
+            });
+        });
+    }
+
+
+    selFav();
+
+
+    favBtnElem.addEventListener('click',(e)=>{
+        console.log('isLike : '+isLike);
+        if(isLike==0){
+            if(!iuser){
+                alert('you can add heart only after login');
+                return;
+            }
+            myFetch.post('/board/fav',(data)=>{
+                console.log(data);
+                if(data.result!=1){
+                    alert('fail to like');
+                }
+                selFav();
+            },{
+                iboard : iboard
+            });
+        }else {
+            myFetch.del(`/board/fav/${iboard}`,(data)=>{
+                if(data.result!=1){
+                    alert('fail to cancel');
+                }
+                selFav();
+            });
+        }
+    });
+
+
 }

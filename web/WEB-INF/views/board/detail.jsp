@@ -32,6 +32,10 @@
             <a href="/board/mod?iboard=${requestScope.detail.iboard}"><button type="button" id="btnChg">Change</button></a>
             <button type="button" id="btnDel">Delete</button>
         </c:if>
+        <!--좋아요 기능-->
+        <div>
+            <i id="favBtn"></i><pre id="favList" ></pre>
+        </div>
         <hr/>
     </div>
     <!--댓글기능-->
@@ -56,4 +60,12 @@
         </div>
     </c:if>
 </div>
+
+<div id="likeModal" class="like-modal">
+    <div class="like-model-box">
+        <h1>Like</h1>
+        <div id="likeModalList"></div>
+    </div>
+</div>
+
 
