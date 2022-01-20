@@ -36,7 +36,11 @@ public class FavService {
         return mapper.selBoardFavList(makeBoardFavEntity(iboard));
     }
 
-
+    //별점
+    public int updBoardRate(BoardFavEntity entity){
+        entity.setIuser(userUtils.getLoginUserPk());
+        return mapper.updBoardRate(entity);
+    }
 
     //BoardFavEntity 만들어주기
     private BoardFavEntity makeBoardFavEntity(int iboard){

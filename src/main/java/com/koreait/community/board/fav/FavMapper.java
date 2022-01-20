@@ -16,4 +16,6 @@ public interface FavMapper {
     int delBoardFav(BoardFavEntity entity);
     //좋아요 리스트
     List<BoardFavVO> selBoardFavList(BoardFavEntity entity);
+    //별점
+    int updBoardRate(BoardFavEntity entity);
 }

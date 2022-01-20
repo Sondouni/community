@@ -8,8 +8,15 @@
         (${iboard},${iuser})
     </insert>
 
+    <update id="updBoardRate">
+        update t_board_fav
+        set irate = #{irate}
+        where iboard = ${iboard}
+          and iuser = ${iuser};
+    </update>
+
     <select id="selBoardFav" resultType="BoardFavEntity">
-        SELECT iboard,iuser,rdt
+        SELECT iboard,iuser,rdt,irate
         FROM t_board_fav
         WHERE iboard = ${iboard}
         and   iuser = ${iuser}
@@ -20,7 +27,7 @@
     </delete>
 
     <select id="selBoardFavList" resultType="BoardFavVO">
-        SELECT A.iboard, A.iuser, A.rdt, B.nm as nm, B.profileimg as profileimg
+        SELECT A.iboard, A.iuser, A.rdt,A.irate, B.nm as nm, B.profileimg as profileimg
         from t_board_fav A
         join t_user B
         ON A.iuser = B.iuser

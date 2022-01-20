@@ -36,6 +36,9 @@ footer {
 .m-r-10 { margin-right: 10px; }
 .m-r-20 { margin-right: 20px; }
 
+.m-b-10 { margin-bottom: 10px; }
+.m-r-10 { margin-right: 10px; }
+
 .p-lr-10 { padding: 0 10px; }
 .p-lr-20 { padding: 0 20px; }
 .p10 { padding: 10px }
@@ -45,6 +48,8 @@ footer {
 }
 .fs-15{font-size: 15px;}
 .fs-30{font-size: 30px;}
+
+#starRateBtn{width: 50px;}
 
 .login-join-container {
     width: 500px;

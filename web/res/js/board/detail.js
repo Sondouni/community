@@ -307,6 +307,8 @@ function addModBtn(divElem,btnDivElem,icmt){
 
     const favBtnElem = document.querySelector('#favBtn');
     const favListElem = document.querySelector('#favList');
+    const likeModalListElem = document.querySelector('#likeModalList');
+    const backBtnElem = document.querySelector('#backBtn');
     let isLike;
     /*
     const selFav = () =>{
@@ -325,7 +327,7 @@ function addModBtn(divElem,btnDivElem,icmt){
         console.log(isLike);
     }
      */
-    //하트를 띄어주기
+    //하트 이미지 띄어주기
     const selFav = () =>{
         myFetch.get(`/board/fav/${iboard}`,(data)=>{
             if(data.result==1){
@@ -339,17 +341,62 @@ function addModBtn(divElem,btnDivElem,icmt){
         });
     }
     //좋아요 갯수, 리스트 뿌려주기
+    //별점도 여기서
     const selFavList = ()=>{
         myFetch.get(`/board/fav?iboard=${iboard}`,(data)=>{
             favListElem.innerHTML = `Like&nbsp${data.result.length}`;
-            favListElem.addEventListener('click',function (e){
+            if(data.result.length==0){
+                likeModalListElem.innerHTML='there`s no heart';
+            }else{
+                likeModalListElem.innerHTML= null;
+                let howManyStar=0;
+                let howManyPeople=0;
+                data.result.forEach((item)=>{
+                    howManyStar += item.irate;
+                    if(item.irate!=0){
+                        howManyPeople++;
+                    }
+                    makeFavDiv(item);
+                });
+                let starlength = Math.round(howManyStar/howManyPeople);
+                showStar(starlength);
+            }
 
-            });
         });
     }
+    //별점 나타내기
+    const showStar = (starlength) =>{
+        let star = document.querySelectorAll(".far");
+        console.log(star);
+        for(let i = 0;i<starlength;i++){
+            star[i].className='fas fa-star';
+            star[i].style.color = 'yellow';
+        }
+    }
+    //좋아요 리스트 이벤트 걸기
+    favListElem.addEventListener('click',function (e){
+        likeModalElem = document.querySelector('#likeModal');
+        likeModalElem.style.display = 'flex';
+    });
+    //좋아요 리스트 div만들기
+    const makeFavDiv = (item)=>{
+        item.rdt = timepassed(item.rdt);
+        let favDivElem = document.createElement('div');
+        favDivElem.className = `flex-row-center m-b-10 p-lr-10`;
+        favDivElem.style.border = '0.5px dashed '
+        favDivElem.innerHTML = `
+            <img class="circular--size40 circular--img" src="${item.profileimg=='profileImg'?'/res/img/defaultProfile.png':'/images/user/'+item.iuser+'/'+item.profileimg}"/>
+            <div>${item.nm}</div>
+            <div>${item.rdt}</div>
+        `;
+        likeModalListElem.appendChild(favDivElem);
+    }
+    //좋아요 리스트 back 이벤트
+    backBtnElem.addEventListener('click',(e)=>{
+        likeModalElem.style.display = 'none';
+    });
 
 
-    selFav();
 
 
     favBtnElem.addEventListener('click',(e)=>{
@@ -377,6 +424,46 @@ function addModBtn(divElem,btnDivElem,icmt){
             });
         }
     });
+    selFav();
 
 
+}
+
+{
+    //별점처리
+    starRateBtnElem = document.querySelector('#starRateBtn');
+    reviewModalElem = document.querySelector('#reviewModal');
+    ratingStarFrmElem = document.querySelector('#ratingStar');
+    //rate눌럿을때
+    starRateBtnElem.addEventListener('click',(e)=>{
+        if(iuser){
+            reviewModalElem.style.display = 'flex';
+        }else {
+            alert('you can rate only after login');
+        }
+    });
+    //뒤로가기
+    ratingStarFrmElem.starBack.addEventListener('click',function (e){
+        reviewModalElem.style.display = 'none';
+    });
+    //서브밋 누를때
+    ratingStarFrmElem.addEventListener('submit',(e)=>{
+        e.preventDefault();
+        let radioElem = document.getElementsByName("rating");
+        let rateValue;
+        radioElem.forEach((item)=>{
+            if(item.checked==true){
+                rateValue = item.value;
+            }
+        });
+        if(!rateValue){
+            alert('you can only rate between 1~5 stars');
+            return;
+        }
+        myFetch.post('/board/fav/rate',(data)=>{
+            if(data.result!=1){
+                alert('fail to rate');
+            }
+        }, {iboard:iboard,irate:rateValue});
+    });
 }
