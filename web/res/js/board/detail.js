@@ -309,6 +309,9 @@ function addModBtn(divElem,btnDivElem,icmt){
     const favListElem = document.querySelector('#favList');
     const likeModalListElem = document.querySelector('#likeModalList');
     const backBtnElem = document.querySelector('#backBtn');
+    const showStarElem = document.querySelector('#showStar');
+    console.log('????');
+    console.log('????');
     let isLike;
     /*
     const selFav = () =>{
@@ -366,7 +369,7 @@ function addModBtn(divElem,btnDivElem,icmt){
     }
     //별점 나타내기
     const showStar = (starlength) =>{
-        let star = document.querySelectorAll(".far");
+        let star = showStarElem.querySelectorAll(".far");
         console.log(star);
         for(let i = 0;i<starlength;i++){
             star[i].className='fas fa-star';
@@ -463,6 +466,8 @@ function addModBtn(divElem,btnDivElem,icmt){
         myFetch.post('/board/fav/rate',(data)=>{
             if(data.result!=1){
                 alert('fail to rate');
+            }else {
+                location.reload();
             }
         }, {iboard:iboard,irate:rateValue});
     });

@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 @Component("MenuPreparer")
 public class MenuPreparer implements ViewPreparer {
+    
+
+
     @Autowired
     private CommonMapper mapper;
 
